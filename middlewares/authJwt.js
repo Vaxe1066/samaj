@@ -38,8 +38,26 @@ verifyToken = (req, res, next) => {
   };
 
 
+  isMember = (req, res, next) => {
+    User.findById(req.userId).exec((err, user) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+      if(user.role==="ADMIN" || user.role==="MEMBER"){
+          next();
+          return;
+      }
+      res.status(403).send({ message: "Require Member Role!" });
+      return;
+
+    });
+  };
+
+
   const authJwt = {
     verifyToken,
-    isAdmin
+    isAdmin,
+    isMember
   };
   module.exports = authJwt;
