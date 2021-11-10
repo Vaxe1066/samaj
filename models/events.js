@@ -11,7 +11,7 @@ const EventsSchema = new Schema(
         postcode: {type: String},
         image: {type: Buffer},
         date: {type: Date, default: Date.now},
-        links: [{type:mongoose.SchemaTypes.Url}]
+        links: {type:Object}
 
     }
 );

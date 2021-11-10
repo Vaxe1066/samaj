@@ -53,7 +53,7 @@ exports.events_post = function(req, res,next){
         postcode: req.body.postcode,
         //image: {type: Buffer},
         date: req.body.date,
-        //links
+        links: req.body.links,
         _id: req.params.id
     })
       Events.findByIdAndUpdate(req.params.id, event, {}, function (err) {
