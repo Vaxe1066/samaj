@@ -8,7 +8,7 @@ const UserSchema = new Schema(
         lastName: {type: String, maxLength: 200},
         email: {type: String, required: true},
         password: {type: String, required: true},
-        image: {type: Buffer},
+        profileImg: {type: String},
         role: {type: String, enum: ["ADMIN","MEMBER", "NONE"], default: "NONE"}
 
     }

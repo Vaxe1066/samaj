@@ -4,14 +4,21 @@ var User = require('../models/user');
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+const fs = require('fs-extra')
 
 
 exports.signup = (req, res) => {
+
+  //var img = fs.readFileSync(req.file.path);
+  //var encode_image = img.toString('base64');
+  const url = req.protocol + '://' + req.get('host')
+
     const user = new User({
         firstName: req.body.firstname,
         lastName: req.body.lastname,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
+        profileImg: url + '/' + req.file.filename
 
     });
   
@@ -20,7 +27,7 @@ exports.signup = (req, res) => {
         res.status(500).send({ message: err });
         return;
       }
-      res.send({ message: "User was registered successfully!" });
+      res.send({ message: "User was registered successfully!", profileImg: user.profileImg });
   
     });
   };
@@ -61,6 +68,7 @@ exports.signup = (req, res) => {
           firstname: user.firstName,
           lastname: user.lastName,
           email: user.email,
+          profileImg: user.profileImg,
           role: user.role,
           accessToken: token
         });
