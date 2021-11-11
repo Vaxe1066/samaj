@@ -6,6 +6,8 @@ const uuid = require('uuid');
 const auth_controller = require("../controllers/auth.controller");
 const directory_controller = require("../controllers/directory");
 const events_controller = require("../controllers/events");
+const image_controller = require("../controllers/image");
+const user_controller = require("../controllers/user")
 
 const { verifySignUp, authJwt } = require("../middlewares");
 
@@ -52,12 +54,19 @@ router.get('/profile/:id',  [authJwt.verifyToken, authJwt.isMember], directory_c
 router.post('/profile/:id', [authJwt.verifyToken, authJwt.isMember], directory_controller.directory_post);
 router.put('/profile/:id',[authJwt.verifyToken, authJwt.isMember], directory_controller.directory_update);
 
+//routes for user
+router.put('/user', [authJwt.verifyToken], user_controller.update_user_image)
+router.get('/user/image/:id', user_controller.get_user_image)
+
 //routes for events 
 router.get('/events', events_controller.events_get);
 router.post('/events', events_controller.events_post);
 router.post('/events/:id', events_controller.events_update);
 router.get('/events/:id', events_controller.events_detail_get)
 router.delete('/events/:id', events_controller.event_delete)
+
+
+router.post('/uploadbase', image_controller.upload_image);
 
 
 

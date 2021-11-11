@@ -9,16 +9,12 @@ const fs = require('fs-extra')
 
 exports.signup = (req, res) => {
 
-  //var img = fs.readFileSync(req.file.path);
-  //var encode_image = img.toString('base64');
-  const url = req.protocol + '://' + req.get('host')
-
     const user = new User({
         firstName: req.body.firstname,
         lastName: req.body.lastname,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
-        profileImg: url + '/' + req.file.filename
+        profileImg: req.body.imageData
 
     });
   
@@ -27,7 +23,7 @@ exports.signup = (req, res) => {
         res.status(500).send({ message: err });
         return;
       }
-      res.send({ message: "User was registered successfully!", profileImg: user.profileImg });
+      res.send({ message: "User was registered successfully!"});
   
     });
   };
