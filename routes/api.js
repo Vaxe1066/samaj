@@ -56,7 +56,8 @@ router.put('/profile/:id',[authJwt.verifyToken, authJwt.isMember], directory_con
 
 //routes for user
 router.put('/user', [authJwt.verifyToken], user_controller.update_user_image)
-router.get('/user/image/:id', user_controller.get_user_image)
+router.get('/user/image/:id', user_controller.get_user_image);
+router.get('/user', user_controller.get_all_users);
 
 //routes for events 
 router.get('/events', events_controller.events_get);
