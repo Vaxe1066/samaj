@@ -21,8 +21,7 @@ exports.update_user_image = (req,res,next) => {
     })
     .then((result)=>{
         res.status(200).json({
-            success:true,
-            document: result
+            message: "User Roles Updated Successfully"
         });
     })
     .catch((err) => next(err));
@@ -33,6 +32,20 @@ exports.get_user_image = (req, res, next) => {
     .then((result)=>{
         res.status(200).json({
             profileImg: result.profileImg
+        });
+    })
+    .catch((err) => next(err));
+}
+
+// update user role
+exports.update_user_role = function(req,res,next){
+    User.updateOne({_id: req.body.id},{
+        role: req.body.role
+    })
+    .then((result)=>{
+        res.status(200).json({
+            success:true,
+            document: result
         });
     })
     .catch((err) => next(err));
